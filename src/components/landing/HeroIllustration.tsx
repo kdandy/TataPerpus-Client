@@ -13,9 +13,9 @@ export function HeroIllustration() {
         />
       </div>
 
-      <div className="absolute -bottom-6 left-5 right-5 rounded-lg border border-emerald-100 bg-white p-4 shadow-panel sm:left-8 sm:right-8">
-        <div className="flex items-center justify-between gap-4">
-          <div>
+      <div className="mt-3 rounded-lg border border-emerald-100 bg-white p-4 shadow-panel sm:absolute sm:-bottom-6 sm:left-8 sm:right-8 sm:mt-0">
+        <div className="flex items-center justify-between gap-3">
+          <div className="min-w-0">
             <p className="text-xs font-black uppercase tracking-[0.14em] text-infobase-primary">Layanan Informasi</p>
             <p className="mt-1 text-sm font-bold text-infobase-black">UPT Perpustakaan Jakarta dan PDS H.B. Jassin</p>
           </div>

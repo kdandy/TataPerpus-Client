@@ -7,6 +7,7 @@ import { Loader2 } from "lucide-react";
 import { Button } from "../../components/ui/Button";
 import { Field, TextInput } from "../../components/ui/TextInput";
 import { useAuth } from "../../features/auth/AuthProvider";
+import { getRoleHomePath } from "../../lib/auth-routing";
 import { APP_NAME } from "../../lib/app-info";
 
 const schema = z.object({
@@ -27,27 +28,27 @@ export function LoginPage() {
   } = useForm<FormInput>({
     resolver: zodResolver(schema),
     defaultValues: {
-      email: "pns@uppjpds.local",
-      password: "Password123!"
+      email: "",
+      password: ""
     }
   });
 
   if (user) {
-    return <Navigate to={user.role === "PNS" ? "/admin/dashboard" : "/"} replace />;
+    return <Navigate to={getRoleHomePath(user.role)} replace />;
   }
 
   async function onSubmit(input: FormInput) {
     setError("");
     try {
       const authUser = await login(input.email, input.password);
-      navigate(authUser.role === "PNS" ? "/admin/dashboard" : "/", { replace: true });
+      navigate(getRoleHomePath(authUser.role), { replace: true });
     } catch (err) {
       setError(err instanceof Error ? err.message : "Login gagal");
     }
   }
 
   return (
-    <main className="relative grid min-h-screen place-items-center bg-infobase-dark px-4 py-8">
+    <main className="relative grid min-h-screen place-items-center overflow-hidden bg-infobase-dark px-4 py-8">
       {/* Background glow */}
       <div className="absolute left-1/2 top-1/3 h-96 w-96 -translate-x-1/2 rounded-full bg-infobase-accent/10 blur-[120px]" aria-hidden="true" />
 

@@ -263,7 +263,7 @@ function PublicHero({ summary }: { summary?: PublicSummary }) {
             <ShieldCheck className="h-4 w-4" aria-hidden="true" />
             Pusat Informasi
           </div>
-          <h1 className="mt-5 max-w-[12ch] text-[clamp(2.4rem,7vw,5.4rem)] font-black uppercase leading-[0.95] text-infobase-white">
+          <h1 className="mt-5 max-w-[12ch] text-4xl font-black uppercase leading-[0.95] text-infobase-white sm:text-5xl lg:text-6xl xl:text-7xl">
             INFOBASE UPPJPDS
           </h1>
           <p className="mt-5 max-w-xl text-base font-semibold leading-7 text-infobase-white/78 sm:text-lg">

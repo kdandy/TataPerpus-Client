@@ -7,7 +7,7 @@ type AuthContextValue = {
   user: AuthUser | null;
   loading: boolean;
   login: (email: string, password: string) => Promise<AuthUser>;
-  logout: () => void;
+  logout: () => Promise<void>;
   refresh: () => Promise<void>;
 };
 
@@ -46,9 +46,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return response.data.user;
   }
 
-  function logout() {
-    setToken(null);
-    setUser(null);
+  async function logout() {
+    try {
+      if (getToken()) {
+        await apiFetch<null>("/auth/logout", { method: "POST" });
+      }
+    } catch {
+      // Local session must still be cleared when the API token is expired or already invalid.
+    } finally {
+      setToken(null);
+      setUser(null);
+    }
   }
 
   useEffect(() => {

@@ -1,12 +1,14 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { ProtectedRoute } from "../components/common/ProtectedRoute";
 import { AdminLayout } from "../components/layout/AdminLayout";
+import { AppLayout } from "../components/layout/AppLayout";
 import { LoginPage } from "../pages/auth/LoginPage";
 import { LandingPage } from "../pages/public/LandingPage";
 import { AdminDashboard } from "../pages/admin/AdminDashboard";
 import { AdminMediaPage } from "../pages/admin/AdminMediaPage";
 import { AdminResourcePage } from "../pages/admin/AdminResourcePage";
 import { adminConfigs } from "../pages/admin/adminConfigs";
+import { AppInfobasePage } from "../pages/app/AppInfobasePage";
 
 export function AppRouter() {
   return (
@@ -14,7 +16,13 @@ export function AppRouter() {
       <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<LoginPage />} />
 
-      <Route path="/app/*" element={<Navigate to="/" replace />} />
+      <Route element={<ProtectedRoute roles={["PNS", "PJLP"]} />}>
+        <Route path="/app" element={<AppLayout />}>
+          <Route index element={<Navigate to="/app/infobase" replace />} />
+          <Route path="infobase" element={<AppInfobasePage />} />
+          <Route path="*" element={<Navigate to="/app/infobase" replace />} />
+        </Route>
+      </Route>
 
       <Route element={<ProtectedRoute roles={["PNS"]} />}>
         <Route path="/admin" element={<AdminLayout />}>

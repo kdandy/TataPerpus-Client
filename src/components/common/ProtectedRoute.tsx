@@ -2,6 +2,7 @@ import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { Loader2 } from "lucide-react";
 import type { UserRole } from "../../types/api";
 import { useAuth } from "../../features/auth/AuthProvider";
+import { getRoleHomePath } from "../../lib/auth-routing";
 
 export function ProtectedRoute({ roles }: { roles?: UserRole[] }) {
   const { user, loading } = useAuth();
@@ -23,7 +24,7 @@ export function ProtectedRoute({ roles }: { roles?: UserRole[] }) {
   }
 
   if (roles && !roles.includes(user.role)) {
-    return <Navigate to="/" replace />;
+    return <Navigate to={getRoleHomePath(user.role)} replace />;
   }
 
   return <Outlet />;
